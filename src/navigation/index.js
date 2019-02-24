@@ -1,6 +1,11 @@
 import React from "react";
 import MasterLayout from "../components/MasterLayout";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from "react-router-dom";
 import StudentsPage from "../features/students-page";
 
 export default () => {
@@ -15,6 +20,7 @@ export default () => {
               <Route path="/companies" component={() => <div>companies</div>} />
               <Route path="/events" component={() => <div>events</div>} />
               <Route path="/contacts" component={() => <div>contacts</div>} />
+              <Redirect exact from="/" to="/students" />
             </Switch>
           </MasterLayout>
         )}

@@ -5,10 +5,34 @@ export const ListContainer = styled.div`
   flex-direction: column;
   width: 250px;
   height: 100%;
+  flex-shrink: 0;
+  position: relative;
+`;
+
+export const ActionsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  flex-shrink: 0;
+  background: #ee6262;
+`;
+
+export const ScrollContainer = styled.div`
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100% - 40px);
   background: #ffffff;
   overflow: auto;
   flex-shrink: 0;
 `;
+
 export const ListElement = styled.div`
   display: inline-flex;
   flex-shrink: 0;
