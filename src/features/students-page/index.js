@@ -45,11 +45,12 @@ class StudentsPage extends Component {
   render() {
     return (
       <React.Fragment>
-        <AddStudentPopup
-          isAddStudent={this.state.isAddStudent}
-          closePopup={this.closePopup}
-          addStudent={this.addStudent}
-        />
+        {this.state.isAddStudent ? (
+          <AddStudentPopup
+            closePopup={this.closePopup}
+            addStudent={this.addStudent}
+          />
+        ) : null}
         {this.state.students ? (
           <StudentsList
             active={this.state.info ? this.state.info.id : null}

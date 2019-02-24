@@ -68,7 +68,7 @@ class AddPopup extends React.Component {
   };
 
   render() {
-    return this.props.isAddStudent ? (
+    return (
       <S.PopupContainer>
         <S.Popup>
           <S.PopupHeader>
@@ -105,8 +105,8 @@ class AddPopup extends React.Component {
                 onChange={this.onChange}
               />
               {this.state.errors
-                ? this.state.errors.map(err => (
-                    <div style={{ color: "#ff4444" }}>{err}</div>
+                ? this.state.errors.map((err, index) => (
+                    <S.Error key={index}>{err}</S.Error>
                   ))
                 : null}
               <S.PopupSubmitBtnContainer>
@@ -119,7 +119,7 @@ class AddPopup extends React.Component {
                   borderRadius={"5px"}
                   fontSize={"12px"}
                   fontWeight={"bold"}
-                  type={"submit"}
+                  type={"button"}
                   onClick={this.addNewStudent}
                 >
                   Add student
@@ -129,7 +129,7 @@ class AddPopup extends React.Component {
           </S.PopupBody>
         </S.Popup>
       </S.PopupContainer>
-    ) : null;
+    );
   }
 }
 

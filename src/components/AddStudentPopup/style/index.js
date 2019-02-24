@@ -61,3 +61,7 @@ export const PopupSubmitBtnContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
+export const Error = styled.div`
+  color: rgb(254, 141, 141);
+  text-align: center;
+`;
