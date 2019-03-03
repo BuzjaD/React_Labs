@@ -1,13 +1,14 @@
 import React from "react";
 import * as S from "./style";
 
-export default ({ label, name, onChange, optionsArr, defaultVal }) => {
+export default ({ label, name, onChange, optionsArr, defaultVal, value }) => {
   return (
     <S.InputContainer>
       <S.Label>{label}</S.Label>
       <S.Select
         name={name}
         defaultValue={"default"}
+        value={value}
         onChange={onChange}
         required
       >

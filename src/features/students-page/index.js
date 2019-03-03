@@ -3,12 +3,14 @@ import studentsData from "../../config/Data_Students";
 import StudentsList from "../../components/StudentsList";
 import StudentInfo from "../../components/StudentInfo";
 import AddStudentPopup from "../../components/AddStudentPopup";
+import * as L from "./style";
 
 class StudentsPage extends Component {
   state = {
     students: null,
     info: null,
-    isAddStudent: false
+    isAddStudent: false,
+    isEditStudent: false
   };
   componentDidMount = () => {
     this.setState({
@@ -26,6 +28,16 @@ class StudentsPage extends Component {
       isAddStudent: !prev.isAddStudent
     }));
   };
+  toggleEditPopup = () => {
+    this.setState(prev => ({
+      isEditStudent: !prev.isEditStudent
+    }));
+  };
+  closeEditPopup = () => {
+    this.setState({
+      isEditStudent: false
+    });
+  };
   closePopup = () => {
     this.setState({
       isAddStudent: false
@@ -42,6 +54,29 @@ class StudentsPage extends Component {
       students: newData
     });
   };
+  editStudent = newStudentData => {
+    let newData = [...this.state.students];
+    let userId = this.state.students.findIndex(
+      stud => stud.id === newStudentData.id
+    );
+    newData[userId] = newStudentData;
+
+    this.setState({
+      students: newData,
+      info: newStudentData
+    });
+  };
+  deleteStudent = studentId => {
+    let newData = [...this.state.students];
+    let delStudentId = this.state.students.findIndex(
+      stud => stud.id === studentId
+    );
+    newData.splice(delStudentId, 1);
+    this.setState({
+      students: newData,
+      info: null
+    });
+  };
   render() {
     return (
       <React.Fragment>
@@ -49,6 +84,14 @@ class StudentsPage extends Component {
           <AddStudentPopup
             closePopup={this.closePopup}
             addStudent={this.addStudent}
+          />
+        ) : null}
+        {this.state.isEditStudent ? (
+          <AddStudentPopup
+            isEdit={true}
+            studData={this.state.info}
+            closePopup={this.closeEditPopup}
+            editStudent={this.editStudent}
           />
         ) : null}
         {this.state.students ? (
@@ -59,7 +102,15 @@ class StudentsPage extends Component {
             togglePopup={this.togglePopup}
           />
         ) : null}
-        {this.state.info ? <StudentInfo info={this.state.info} /> : null}
+        {this.state.info ? (
+          <StudentInfo
+            info={this.state.info}
+            toggleEditPopup={this.toggleEditPopup}
+            deleteStudent={this.deleteStudent}
+          />
+        ) : (
+          <L.Empty>Choose student</L.Empty>
+        )}
       </React.Fragment>
     );
   }

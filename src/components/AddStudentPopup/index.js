@@ -24,7 +24,9 @@ class AddPopup extends React.Component {
     if (obj.name === null || obj.name === " ") {
       errorsArr.push("Name required!");
     } else if (
-      !/^[a-zA-Zа-яА-Я'][a-zA-Zа-яА-Я-' ]+[a-zA-Zа-яА-Я']?$/u.test(obj.name)
+      !/^[a-zA-Zа-яА-Я_.'][a-zA-Zа-яА-Я-_.' ]+[a-zA-Zа-яА-Я_.']?$/u.test(
+        obj.name
+      )
     ) {
       errorsArr.push("Uncorrect Name value!");
     }
@@ -67,7 +69,34 @@ class AddPopup extends React.Component {
     }
   };
 
+  componentDidMount = () => {
+    if (this.props.isEdit) {
+      this.setState({
+        name: this.props.studData.name,
+        spec: this.props.studData.spec,
+        group: this.props.studData.group,
+        syear: this.props.studData.syear
+      });
+    }
+  };
+
+  editCurrentStudent = () => {
+    const updatedStudObj = {
+      id: this.props.studData.id,
+      name: this.state.name,
+      spec: this.state.spec,
+      group: this.state.group,
+      syear: this.state.syear
+    };
+    const result = this.checkValidation(updatedStudObj);
+    if (!result) {
+      this.props.editStudent(updatedStudObj);
+      this.props.closePopup();
+    }
+  };
+
   render() {
+    const { name, group, syear, spec } = this.state;
     return (
       <S.PopupContainer>
         <S.Popup>
@@ -85,7 +114,12 @@ class AddPopup extends React.Component {
           </S.PopupHeader>
           <S.PopupBody>
             <S.PopupForm>
-              <Input label={"Name"} name={"name"} onChange={this.onChange} />
+              <Input
+                label={"Name"}
+                name={"name"}
+                onChange={this.onChange}
+                value={name}
+              />
               <Select
                 label={"Specialization"}
                 name={"spec"}
@@ -96,12 +130,18 @@ class AddPopup extends React.Component {
                   { name: "DEIVY" },
                   { name: "POIBMS" }
                 ]}
-                defaultVal={{ name: "ISiT" }}
+                value={spec}
               />
-              <Input label={"Group"} name={"group"} onChange={this.onChange} />
+              <Input
+                label={"Group"}
+                name={"group"}
+                onChange={this.onChange}
+                value={group}
+              />
               <Input
                 label={"Admission year"}
                 name={"syear"}
+                value={syear}
                 onChange={this.onChange}
               />
               {this.state.errors
@@ -120,7 +160,11 @@ class AddPopup extends React.Component {
                   fontSize={"12px"}
                   fontWeight={"bold"}
                   type={"button"}
-                  onClick={this.addNewStudent}
+                  onClick={
+                    this.props.isEdit
+                      ? this.editCurrentStudent
+                      : this.addNewStudent
+                  }
                 >
                   Add student
                 </Button>

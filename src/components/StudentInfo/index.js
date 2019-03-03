@@ -3,7 +3,7 @@ import Button from "../Buttons/DefaultButton";
 import Events from "../Events";
 import * as S from "./style";
 
-export default ({ info }) => {
+export default ({ info, toggleEditPopup, deleteStudent }) => {
   return (
     <S.InfoContainer>
       <S.InfoCard>
@@ -17,6 +17,7 @@ export default ({ info }) => {
               activeBackground={"#FFFFFF"}
               width={"105px"}
               height={"100%"}
+              onClick={toggleEditPopup}
             >
               Edit student
             </Button>
@@ -25,6 +26,9 @@ export default ({ info }) => {
               border={"1px solid #FD4949"}
               width={"105px"}
               height={"100%"}
+              onClick={() => {
+                deleteStudent(info.id);
+              }}
             >
               Delete student
             </Button>
