@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import studentsData from "../../config/Data_Students";
 import StudentsList from "../../components/StudentsList";
 import StudentInfo from "../../components/StudentInfo";
-import AddStudentPopup from "../../components/AddStudentPopup";
+import StudentPopup from "../../components/StudentPopup";
 import * as L from "./style";
 
 class StudentsPage extends Component {
@@ -81,13 +81,13 @@ class StudentsPage extends Component {
     return (
       <React.Fragment>
         {this.state.isAddStudent ? (
-          <AddStudentPopup
+          <StudentPopup
             closePopup={this.closePopup}
             addStudent={this.addStudent}
           />
         ) : null}
         {this.state.isEditStudent ? (
-          <AddStudentPopup
+          <StudentPopup
             isEdit={true}
             studData={this.state.info}
             closePopup={this.closeEditPopup}
