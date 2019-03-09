@@ -2,25 +2,33 @@ import React from "react";
 import Button from "../Buttons/DefaultButton";
 import * as S from "./style";
 
-export default ({ active, students, onClick, haveActions, togglePopup }) => {
+export default ({
+  active,
+  data,
+  onClick,
+  haveActions,
+  addButtonContent,
+  positionButtonContent,
+  togglePopup
+}) => {
   return (
     <S.ListContainer>
       {haveActions === false ? null : (
         <S.ActionsContainer>
-          <Button onClick={togglePopup}>Add student</Button>
-          <Button>Position</Button>
+          <Button onClick={togglePopup}>{addButtonContent || "Add"}</Button>
+          <Button>{positionButtonContent || "Position"}</Button>
         </S.ActionsContainer>
       )}
       <S.ScrollContainer>
-        {students.map((student, index) => (
+        {data.map((el, index) => (
           <S.ListElement
-            isActive={active === student.id}
+            isActive={active === el.id}
             key={index}
             onClick={() => {
-              onClick(student.id);
+              onClick(el.id);
             }}
           >
-            {student.name}
+            {el.name}
           </S.ListElement>
         ))}
       </S.ScrollContainer>

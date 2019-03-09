@@ -89,17 +89,21 @@ class StudentsPage extends Component {
         {this.state.isEditStudent ? (
           <StudentPopup
             isEdit={true}
-            studData={this.state.info}
+            data={this.state.info}
             closePopup={this.closeEditPopup}
             editStudent={this.editStudent}
+            popupText={"Edit student"}
+            buttonText={"Save changes"}
           />
         ) : null}
         {this.state.students ? (
           <StudentsList
             active={this.state.info ? this.state.info.id : null}
-            students={this.state.students}
+            data={this.state.students}
             onClick={this.onStudentClick}
             togglePopup={this.togglePopup}
+            addButtonContent={"Add student"}
+            positionButtonContent={"Position"}
           />
         ) : null}
         {this.state.info ? (

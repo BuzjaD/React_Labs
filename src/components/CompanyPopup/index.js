@@ -1,16 +1,11 @@
 import React from "react";
 import * as S from "./style";
 import Input from "../Form/Input";
-import Select from "../Form/Select";
 import Button from "../Buttons/DefaultButton";
 
 class AddPopup extends React.Component {
   state = {
-    name: "",
-    spec: "",
-    group: "",
-    syear: "",
-    errors: ""
+    name: ""
   };
 
   onChange = e => {
@@ -30,22 +25,6 @@ class AddPopup extends React.Component {
     ) {
       errorsArr.push("Uncorrect Name value!");
     }
-    if (obj.spec === null || obj.spec === " ") {
-      errorsArr.push("Specialization required!");
-    }
-    if (obj.group === null || obj.group === " ") {
-      errorsArr.push("Group required!");
-    } else if (!(parseInt(obj.group) >= 1 && parseInt(obj.group) <= 20)) {
-      errorsArr.push("Uncorrect Group value!");
-    }
-    if (obj.syear === null || obj.syear === " ") {
-      errorsArr.push("Admission year required!");
-    } else if (
-      obj.syear < new Date().getFullYear() - 10 ||
-      obj.syear > new Date().getFullYear()
-    ) {
-      errorsArr.push("Uncorrect Admission year value!");
-    }
     if (errorsArr.length > 0) {
       this.setState({
         errors: errorsArr
@@ -55,16 +34,13 @@ class AddPopup extends React.Component {
     return false;
   };
 
-  addNewStudent = () => {
-    const newStudObj = {
-      name: this.state.name,
-      spec: this.state.spec,
-      group: this.state.group,
-      syear: this.state.syear
+  addNewCompany = () => {
+    const newCompanyObj = {
+      name: this.state.name
     };
-    const result = this.checkValidation(newStudObj);
+    const result = this.checkValidation(newCompanyObj);
     if (!result) {
-      this.props.addStudent(newStudObj);
+      this.props.addCompany(newCompanyObj);
       this.props.closePopup();
     }
   };
@@ -72,36 +48,30 @@ class AddPopup extends React.Component {
   componentDidMount = () => {
     if (this.props.isEdit) {
       this.setState({
-        name: this.props.data.name,
-        spec: this.props.data.spec,
-        group: this.props.data.group,
-        syear: this.props.data.syear
+        name: this.props.data.name
       });
     }
   };
 
-  editCurrentStudent = () => {
+  editCurrentCompany = () => {
     const updatedStudObj = {
       id: this.props.data.id,
-      name: this.state.name,
-      spec: this.state.spec,
-      group: this.state.group,
-      syear: this.state.syear
+      name: this.state.name
     };
     const result = this.checkValidation(updatedStudObj);
     if (!result) {
-      this.props.editStudent(updatedStudObj);
+      this.props.editCompany(updatedStudObj);
       this.props.closePopup();
     }
   };
 
   render() {
-    const { name, group, syear, spec } = this.state;
+    const { name } = this.state;
     return (
       <S.PopupContainer>
         <S.Popup>
           <S.PopupHeader>
-            <S.PopupText>{this.props.popupText || "New student"}</S.PopupText>
+            <S.PopupText>{this.props.popupText || "New company"}</S.PopupText>
             <Button
               color={"#FF5C5C"}
               background={"none"}
@@ -119,30 +89,6 @@ class AddPopup extends React.Component {
                 name={"name"}
                 onChange={this.onChange}
                 value={name}
-              />
-              <Select
-                label={"Specialization"}
-                name={"spec"}
-                onChange={this.onChange}
-                optionsArr={[
-                  { name: "ISiT" },
-                  { name: "POIT" },
-                  { name: "DEIVY" },
-                  { name: "POIBMS" }
-                ]}
-                value={spec}
-              />
-              <Input
-                label={"Group"}
-                name={"group"}
-                onChange={this.onChange}
-                value={group}
-              />
-              <Input
-                label={"Admission year"}
-                name={"syear"}
-                value={syear}
-                onChange={this.onChange}
               />
               {this.state.errors
                 ? this.state.errors.map((err, index) => (
@@ -162,11 +108,11 @@ class AddPopup extends React.Component {
                   type={"button"}
                   onClick={
                     this.props.isEdit
-                      ? this.editCurrentStudent
-                      : this.addNewStudent
+                      ? this.editCurrentCompany
+                      : this.addNewCompany
                   }
                 >
-                  {this.props.buttonText || "Add student"}
+                  {this.props.buttonText || "Add company"}
                 </Button>
               </S.PopupSubmitBtnContainer>
             </S.PopupForm>

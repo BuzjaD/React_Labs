@@ -7,8 +7,7 @@ export default ({ label, name, onChange, optionsArr, defaultVal, value }) => {
       <S.Label>{label}</S.Label>
       <S.Select
         name={name}
-        defaultValue={"default"}
-        value={value}
+        value={value || "default"}
         onChange={onChange}
         required
       >
