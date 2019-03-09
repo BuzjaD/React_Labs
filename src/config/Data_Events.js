@@ -18,7 +18,7 @@
     date: "2018-02-07",
     text: "Принят на работу",
     company: { id: 2, name: "LeverX" },
-    student: { id: 2, name: "LeverX" }
+    student: { id: 2, name: "Иванов И.И.", spec: "ИСиТ", group: 1, syear: 2016 }
   },
   {
     id: 4,
